@@ -27,4 +27,11 @@ public class Product {
     private int stock;
     @Column(name = "price")
     private double price;
+
+    public Product(String productName, String productDescription, int stock, double price) {
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.stock = stock;
+        this.price = price;
+    }
 }

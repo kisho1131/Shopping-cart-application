@@ -16,6 +16,10 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     @Override
     public List<Product> getAllProducts() {
         return this.productRepository.findAll();
@@ -23,15 +27,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addProduct(Product product) {
-        Product product_obj = new Product();
-        product_obj.setProductName(product.getProductName());
-        product_obj.setProductDescription(product.getProductDescription());
-        product_obj.setPrice(product.getPrice());
-        product_obj.setStock(product.getStock());
-        product_obj.setId(product.getId());
-        productRepository.save(product_obj);
-        return product_obj;
+//        Product product_obj = new Product();
+//        product_obj.setProductName(product.getProductName());
+//        product_obj.setProductDescription(product.getProductDescription());
+//        product_obj.setPrice(product.getPrice());
+//        product_obj.setStock(product.getStock());
+//        product_obj.setId(product.getId());
+        productRepository.save(product);
+        return product;
     }
+
 
     @Override
     public Product getProductById(Integer id) throws Exception {
