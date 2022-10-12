@@ -1,6 +1,5 @@
 package com.shoppingcart.controller;
 
-import com.shoppingcart.exception.ResourceNotFoundException;
 import com.shoppingcart.model.Product;
 import com.shoppingcart.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +36,16 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/get/product/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Product> getProductById(@PathVariable Integer id){
+    public ResponseEntity<Product> getProductById(@PathVariable Integer id) throws Exception {
         Product product =  productRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Employee Not Exist with Given Id: " + id));
+                new Exception("Employee Not Exist with Given Id: " + id));
         return ResponseEntity.ok(product);
     }
 
     @RequestMapping(value = "/update/product/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Product> updateProduct(@PathVariable  Integer id,@RequestBody Product product){
+    public ResponseEntity<Product> updateProduct(@PathVariable  Integer id,@RequestBody Product product) throws Exception {
         Product product_obj =  productRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Employee Not Exist with Given Id: " + id));
+                new Exception("Employee Not Exist with Given Id: " + id));
         product_obj.setProductName(product.getProductName());
         product_obj.setProductDescription(product.getProductDescription());
         product_obj.setStock(product.getStock());
@@ -56,9 +55,9 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/delete/product/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Map<String, Boolean>> deleteProduct(@PathVariable Integer id){
+    public ResponseEntity<Map<String, Boolean>> deleteProduct(@PathVariable Integer id) throws Exception {
         Product product_obj =  productRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Employee Not Exist with Given Id: " + id));
+                new Exception("Employee Not Exist with Given Id: " + id));
         productRepository.delete(product_obj);
         Map<String, Boolean> response = new HashMap<>();
         response.put("Product Deleted", Boolean.TRUE);
